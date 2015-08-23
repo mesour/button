@@ -1,0 +1,462 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link rel="icon" href="../../favicon.ico">
+
+    <title>Mesour\Components</title>
+
+    <!-- Bootstrap core CSS -->
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Custom styles for this template -->
+    <link href="css/style.css" rel="stylesheet">
+
+    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+    <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+    <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <![endif]-->
+</head>
+
+<body id="top" class="container">
+<nav class="navbar navbar-fixed-top navbar-inverse">
+    <div class="container">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar"
+                    aria-expanded="false" aria-controls="navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="index.html">Project name</a>
+        </div>
+        <div id="navbar" class="collapse navbar-collapse">
+            <ul class="nav navbar-nav">
+
+            </ul>
+        </div>
+        <!-- /.nav-collapse -->
+    </div>
+    <!-- /.container -->
+</nav>
+<!-- /.navbar -->
+
+<div class="container">
+
+    <div class="row row-offcanvas row-offcanvas-right">
+
+        <div class="col-xs-12 col-sm-9">
+            <p class="pull-right visible-xs">
+                <button type="button" class="btn btn-primary btn-xs" data-toggle="offcanvas">Toggle nav</button>
+            </p>
+            <div class="row">
+
+                <span id="button" class="anchor">&nbsp;</span>
+                <h1>Mesour\Button</h1>
+
+                <div class="row">
+                    <div class="col-xs-6 col-lg-6">
+                        <h2>Required</h2>
+                        <p><span class="label label-danger">Server:</span></p>
+                        <ul>
+                            <li>PHP >= 5.4</li>
+                            <li>Mesour\Components</li>
+                        </ul>
+                        <p><span class="label label-info">Client:</span></p>
+                        <ul>
+                            <li><i>Nothing required</i></li>
+                        </ul>
+                    </div><!--/.col-xs-6.col-lg-4-->
+                    <div class="col-xs-6 col-lg-6">
+                        <h2>Install</h2>
+
+                        <p>With composer. Go to <a href="http://getcomposer.org" target="_blank">getcomposer.org</a>.</p>
+                        <pre>"require": {
+    "mesour\button": "dev-master"
+}</pre>
+
+                        <p>Or go to <a href="http://git.mesour.com/mesour/button/branches/recent" target="_blank" class="btn btn-warning btn-xs">GIT repository</a></p>
+                    </div>
+                </div>
+
+                <span id="defaults" class="anchor">&nbsp;</span>
+                <h2>Defaults</h2>
+
+                <pre>$defaults = array(
+    self::WRAPPER => array(
+        'el' => 'a',
+        'attributes' => array(
+            'class' => 'btn btn-{_BTN_type_} {_BTN_size_} {_BTN_own_class_}',
+            'role' => 'button',
+        )
+    ),
+    self::ICON => array(
+        'el' => 'span',
+        'attributes' => array(
+            'class' => 'glyphicon glyphicon-{_ICON_name_}'
+        )
+    ),
+    self::RIGHT_ICON => array(
+        'el' => 'span',
+        'attributes' => array(
+            'class' => 'glyphicon glyphicon-{_RICON_name_}'
+        )
+    ),
+    self::DEFAULTS => array(
+        '_BTN_type_' => 'default',
+        '_BTN_own_class_' => '',
+        '_BTN_size_' => '',
+        '_ICON_name_' => 'pencil',
+        '_RICON_name_' => 'pencil',
+    )
+);</pre>
+
+                <span id="features" class="anchor">&nbsp;</span>
+                <h2>Features</h2>
+
+                <span id="without-settings" class="anchor">&nbsp;</span>
+                <h3>- Without settings</h3>
+
+                <p>Init:</p>
+
+                <pre>$button = new \Mesour\UI\Button;
+
+$button->render();</pre>
+
+                <p>Output:</p>
+
+                <pre>&lt;a class=&quot;btn btn-default&quot; role=&quot;button&quot;&gt;&lt;/a&gt;</pre>
+
+                <p>Demo:</p>
+
+                <div class="jumbotron">
+                    <a class="btn btn-default" role="button"></a>
+                </div>
+
+                <span id="href-and-text" class="anchor">&nbsp;</span>
+                <h3>- Set href and text</h3>
+
+                <p>Init:</p>
+
+                <pre>$button = new \Mesour\UI\Button;
+
+$button->setText('To mesour.com >>');
+
+$button->setAttribute('href', $button->link('http://mesour.com'))
+    ->setAttribute('target', '_blank');
+
+$button->render();</pre>
+
+                <p>Output:</p>
+
+                <pre>&lt;a href=&quot;http://mesour.com?&quot; target=&quot;_blank&quot; class=&quot;btn btn-default&quot; role=&quot;button&quot;&gt;
+    To mesour.com &amp;gt;&amp;gt;
+&lt;/a&gt;</pre>
+
+                <p>Demo:</p>
+
+                <div class="jumbotron">
+                    <a href="http://mesour.com?" target="_blank" class="btn btn-default" role="button">To mesour.com &gt;&gt;</a>
+                </div>
+
+                <span id="type-size-own-class" class="anchor">&nbsp;</span>
+                <h3>- Set type, size and own class name</h3>
+
+                <p>Init:</p>
+
+                <pre>$button = new \Mesour\UI\Button;
+
+$button->setText('To mesour.com >>')
+    ->setType('warning')
+    ->setSize('btn-lg')
+    ->setClassName('my-own-appended-class')
+    ->setAttribute('href', $button->link('http://mesour.com'))
+    ->setAttribute('target', '_blank');
+
+$button->render();</pre>
+
+                <p>Output:</p>
+
+                <pre>&lt;a href=&quot;http://mesour.com?&quot; target=&quot;_blank&quot; class=&quot;btn btn-warning btn-lg my-own-appended-class&quot; role=&quot;button&quot;&gt;
+    To mesour.com &amp;gt;&amp;gt;
+&lt;/a&gt;</pre>
+
+                <p>Demo:</p>
+
+                <div class="jumbotron">
+                    <a href="http://mesour.com?" target="_blank" class="btn btn-warning btn-lg my-own-appended-class" role="button">To mesour.com &gt;&gt;</a>
+                </div>
+
+                <span id="set-disabled" class="anchor">&nbsp;</span>
+                <h3>- Set disabled</h3>
+
+                <p><span class="label label-info">Info:</span> It will remove all attributes with link.</p>
+
+                <p>Init:</p>
+
+                <pre>$button = new \Mesour\UI\Button;
+
+$button->setText('To mesour.com >>')
+    ->setType('warning')
+    ->setSize('btn-lg')
+    ->setClassName('my-own-appended-class')
+    ->setAttribute('href', $button->link('http://mesour.com'))
+    ->setAttribute('target', '_blank');
+
+<b>$button->setDisabled();</b>
+
+$button->render();</pre>
+
+                <p>Output:</p>
+
+                <pre>&lt;a target=&quot;_blank&quot; class=&quot;btn btn-warning btn-lg my-own-appended-class <b>disabled</b>&quot; role=&quot;button&quot;&gt;
+    To mesour.com &amp;gt;&amp;gt;
+&lt;/a&gt;</pre>
+
+                <p>Demo:</p>
+
+                <div class="jumbotron">
+                    <a target="_blank" class="btn btn-warning btn-lg my-own-appended-class disabled" role="button">To mesour.com &gt;&gt;</a>
+                </div>
+
+                <span id="without-classes" class="anchor">&nbsp;</span>
+                <h3>- Without classes, own classes</h3>
+
+                <p>Init:</p>
+
+                <pre>$button = new \Mesour\UI\Button();
+
+$button->setText('To mesour.com >>')
+    ->setAttribute('class', FALSE)// set own class name or FALSE for unset
+    ->setAttribute('href', $button->link('http://mesour.com'))
+    ->setAttribute('target', '_blank');
+
+$button->render();</pre>
+
+                <p>Output:</p>
+
+                <pre>&lt;a href=&quot;http://mesour.com?&quot; target=&quot;_blank&quot; role=&quot;button&quot;&gt;To mesour.com &amp;gt;&amp;gt;&lt;/a&gt;</pre>
+
+                <p>Demo:</p>
+
+                <div class="jumbotron">
+                    <a href="http://mesour.com?" target="_blank" role="button">To mesour.com &gt;&gt;</a>
+                </div>
+
+                <span id="icons" class="anchor">&nbsp;</span>
+                <h3>- Left and right icons</h3>
+
+                <p>Init:</p>
+
+                <pre>$button = new \Mesour\UI\Button();
+
+$button->setIcon('tree-deciduous');
+
+$button->setRightIcon('menu-right');
+
+$button->setText('MESOUR.COM')
+    ->setType('danger')
+    ->setSize('btn-lg')
+    ->setAttribute('href', $button->link('http://mesour.com'))
+    ->setAttribute('target', '_blank');
+
+$button->render();</pre>
+
+                <p>Output:</p>
+
+                <pre>&lt;a href=&quot;http://mesour.com?&quot; target=&quot;_blank&quot; class=&quot;btn btn-danger btn-lg&quot; role=&quot;button&quot;&gt;
+    &lt;span class=&quot;glyphicon glyphicon-tree-deciduous&quot;&gt;&lt;/span&gt;
+    &amp;nbsp;MESOUR.COM&amp;nbsp;
+    &lt;span class=&quot;glyphicon glyphicon-menu-right&quot;&gt;&lt;/span&gt;
+&lt;/a&gt;</pre>
+
+                <p>Demo:</p>
+
+                <div class="jumbotron">
+                    <a href="http://mesour.com?" target="_blank" class="btn btn-danger btn-lg" role="button">
+                        <span class="glyphicon glyphicon-tree-deciduous"></span>&nbsp;MESOUR.COM&nbsp;<span class="glyphicon glyphicon-menu-right"></span>
+                    </a>
+                </div>
+
+                <span id="only-icon" class="anchor">&nbsp;</span>
+                <h3>- Only icon</h3>
+
+                <p>Init:</p>
+
+                <pre>$button = new \Mesour\UI\Button();
+
+$button->setIcon('pencil');
+
+$button->setType('primary')
+    ->setSize('btn-lg')
+    ->setAttribute('href', $button->link('http://mesour.com'))
+    ->setAttribute('target', '_blank');
+
+$button->render();</pre>
+
+                <p>Output:</p>
+
+                <pre>&lt;a href=&quot;http://mesour.com?&quot; target=&quot;_blank&quot; class=&quot;btn btn-primary btn-lg&quot; role=&quot;button&quot;&gt;
+    &lt;span class=&quot;glyphicon glyphicon-pencil&quot;&gt;&lt;/span&gt;
+&lt;/a&gt;</pre>
+
+                <p>Demo:</p>
+
+                <div class="jumbotron">
+                    <a href="http://mesour.com?" target="_blank" class="btn btn-primary btn-lg" role="button"><span class="glyphicon glyphicon-pencil"></span></a>
+                </div>
+
+                <span id="data-parser" class="anchor">&nbsp;</span>
+                <h3>- Using data parser via {key}</h3>
+
+                <p>Init:</p>
+
+                <pre>$button = new \Mesour\UI\Button();
+
+$button->setIcon('pencil');
+
+$button->setType('primary')
+    ->setSize('btn-lg')
+    ->setAttribute('id', 'user-<b>{username}</b>')
+    ->setAttribute('href', $button->link('/edit-user/', array('id' => <b>'{id}'</b>)))
+    ->setAttribute('target', '_blank');
+
+$button->render(array(
+    <b>'id' => 25,
+    'username' => 'root',</b>
+    'name' => 'Root'
+));
+
+// <b>can render again with another data</b>
+$button->render(array(
+    'id' => 50,
+    'username' => 'admin',
+    'name' => 'Admin'
+));</pre>
+
+                <p>Output:</p>
+
+                <pre>&lt;a id=&quot;user-<b>root</b>&quot; href=&quot;/edit-user/?id=<b>25</b>&quot; target=&quot;_blank&quot; class=&quot;btn btn-primary btn-lg&quot; role=&quot;button&quot;&gt;
+    &lt;span class=&quot;glyphicon glyphicon-pencil&quot;&gt;&lt;/span&gt;
+&lt;/a&gt;
+&lt;!-- here next rendered anchor with id = 50 --&gt;</pre>
+
+                <p>Demo:</p>
+
+                <div class="jumbotron">
+                    <a id="user-root" href="/edit-user/?id=25" target="_blank" class="btn btn-primary btn-lg" role="button"><span class="glyphicon glyphicon-pencil"></span></a>
+                </div>
+
+                <span id="full-example" class="anchor">&nbsp;</span>
+                <h3>- Full example</h3>
+
+                <p>Init:</p>
+
+                <pre>$button = new \Mesour\UI\Button();
+
+// $button->setAttribute('class', 'my-own-class');
+// same as
+// $button->getControlPrototype()->class('my-own-class');
+
+$button->setConfirm('Test confirm\' text?');
+
+$button->setAttribute('data-text', 'Test title', FALSE, TRUE); // TRUE = allow translates
+
+$button->setIcon('education');
+
+$button->setRightIcon('option-horizontal');
+
+$button->setSize('btn-lg');
+
+$button->setText('My text');
+
+$button->setClassName('my-test-2');
+
+$button->setAttribute('href', $button->link('/test/', array('id' => '{id}')));
+
+$button->onRender[] = function (\Mesour\UI\Button $button, $data) {
+    if ($data['id'] <= 5) {
+        $button->setDisabled();
+        $button->setAttribute('data-xxx', 'ble');
+        $button->getIconPrototype()
+            ->class('glyphicon glyphicon-menu-hamburger');
+    } else {
+        $button->setDisabled(FALSE);
+    }
+
+};
+
+echo '&lt;h4&gt;Disabled id = 5&lt;/h4&gt;';
+
+$button->render(array(
+    'id' => 5
+));
+
+echo '&lt;hr&gt;&lt;h4&gt;Enabled id = 25&lt;/h4&gt;';
+
+$button->render(array(
+    'id' => 25
+));</pre>
+
+                <p>Output:</p>
+
+                <pre>&lt;h4&gt;Disabled id = 5&lt;/h4&gt;
+&lt;a data-text=&quot;Test title&quot; data-xxx=&quot;ble&quot; class=&quot;btn btn-default btn-lg my-test-2 disabled&quot; role=&quot;button&quot;&gt;
+    &lt;span class=&quot;glyphicon glyphicon-menu-hamburger&quot;&gt;&lt;/span&gt;
+    &amp;nbsp;My text&amp;nbsp;
+    &lt;span class=&quot;glyphicon glyphicon-option-horizontal&quot;&gt;&lt;/span&gt;
+&lt;/a&gt;
+&lt;hr&gt;&lt;h4&gt;Enabled id = 25&lt;/h4&gt;
+&lt;a onclick=&quot;return confirm('Test confirm\' text?');&quot; data-text=&quot;Test title&quot; href=&quot;/test/?id=25&quot; class=&quot;btn btn-default btn-lg my-test-2&quot; role=&quot;button&quot;&gt;
+    &lt;span class=&quot;glyphicon glyphicon-education&quot;&gt;&lt;/span&gt;
+    &amp;nbsp;My text&amp;nbsp;
+    &lt;span class=&quot;glyphicon glyphicon-option-horizontal&quot;&gt;&lt;/span&gt;
+&lt;/a&gt;</pre>
+
+                <p>Demo:</p>
+
+                <div class="jumbotron">
+                    <h4>Disabled id = 5</h4><a data-text="Test title" data-xxx="ble" class="btn btn-default btn-lg my-test-2 disabled" role="button"><span class="glyphicon glyphicon-menu-hamburger"></span>&nbsp;My text&nbsp;<span class="glyphicon glyphicon-option-horizontal"></span></a><hr><h4>Enabled id = 25</h4><a onclick="return confirm('Test confirm\' text?');" data-text="Test title" href="/test/?id=25" class="btn btn-default btn-lg my-test-2" role="button"><span class="glyphicon glyphicon-education"></span>&nbsp;My text&nbsp;<span class="glyphicon glyphicon-option-horizontal"></span></a>
+                </div>
+
+            </div>
+            <!--/row-->
+        </div>
+        <!--/.col-xs-12.col-sm-9-->
+
+        <div class="col-xs-6 col-sm-3 sidebar-offcanvas affix" id="sidebar" data-offset="50">
+            <ul class="nav nav-pills nav-stacked"></ul>
+        </div>
+        <!--/.sidebar-offcanvas-->
+    </div>
+    <!--/row-->
+
+    <hr>
+
+    <footer>
+        <p>&copy; <a href="http://mesour.com" target="_blank">mesour.com</a> 2015</p>
+    </footer>
+
+</div>
+<!--/.container-->
+
+
+<!-- Bootstrap core JavaScript
+================================================== -->
+<!-- Placed at the end of the document so the pages load faster -->
+<script src="js/jquery.min.js"></script>
+<script src="js/bootstrap.min.js"></script>
+
+<!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
+<script src="js/ie10-viewport-bug-workaround.js"></script>
+
+<script src="js/main.js"></script>
+</body>
+</html>
