@@ -7,8 +7,6 @@
 
 - With [Composer](https://getcomposer.org)
 
-        "require": {
-            "mesour/button": "dev-master"
-        }
+        composer require mesour/button
 
 - Or download source from [GitHub](https://github.com/mesour/button/releases)
