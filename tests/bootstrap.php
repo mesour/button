@@ -12,7 +12,7 @@ if (!class_exists('Tester\Assert')) {
 @mkdir(__DIR__ . "/log");
 @mkdir(__DIR__ . "/tmp");
 
-require_once SRC_DIR . 'Button.php';
+require_once SRC_DIR . 'Mesour/UI/Button.php';
 require_once __DIR__ . '/Button/BaseTestCase.php';
 
 define("TEMP_DIR", __DIR__ . "/tmp/");
