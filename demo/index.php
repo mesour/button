@@ -1,13 +1,13 @@
 <!-- Latest compiled and minified CSS -->
-<link rel="stylesheet" href="../docs/css/bootstrap.min.css">
+<link rel="stylesheet" href="resources/css/bootstrap.min.css">
 
 <!-- Optional theme -->
-<link rel="stylesheet" href="../docs/css/bootstrap-theme.min.css">
+<link rel="stylesheet" href="resources/css/bootstrap-theme.min.css">
 
 <!-- Latest compiled and minified JavaScript -->
-<script src="../docs/js/jquery.min.js"></script>
-<script src="../docs/js/bootstrap.min.js"></script>
-<script src="../docs/js/main.js"></script>
+<script src="resources/js/jquery.min.js"></script>
+<script src="resources/js/bootstrap.min.js"></script>
+<script src="resources/js/main.js"></script>
 
 <?php
 
@@ -191,14 +191,14 @@ require_once SRC_DIR . 'Mesour/UI/Button.php';
         $button->setType('primary')
             ->setSize('btn-lg')
             ->setAttribute('id', 'user-{username}')
-            ->setAttribute('href', $button->link('/edit-user/', array('id' => '{id}')))
+            ->setAttribute('href', $button->link('/edit-user/', ['id' => '{id}']))
             ->setAttribute('target', '_blank');
 
-        $button->render(array(
+        $button->render([
             'id' => 25,
             'username' => 'root',
             'name' => 'Root'
-        ));
+        ]);
 
         ?>
     </div>
@@ -228,7 +228,7 @@ require_once SRC_DIR . 'Mesour/UI/Button.php';
 
         $button->setClassName('my-test-2');
 
-        $button->setAttribute('href', $button->link('/test/', array('id' => '{id}')));
+        $button->setAttribute('href', $button->link('/test/', ['id' => '{id}']));
 
         $button->onRender[] = function (\Mesour\UI\Button $button, $data) {
             if ($data['id'] <= 5) {
@@ -244,15 +244,15 @@ require_once SRC_DIR . 'Mesour/UI/Button.php';
 
         echo '<h4>Disabled id = 5</h4>';
 
-        $button->render(array(
+        $button->render([
             'id' => 5
-        ));
+        ]);
 
         echo '<hr><h4>Enabled id = 25</h4>';
 
-        $button->render(array(
+        $button->render([
             'id' => 25
-        ));
+        ]);
 
         ?>
     </div>

@@ -13,8 +13,8 @@ class RenderTestCase extends BaseTestCase
     private $withoutSettings = '<a class="btn btn-default" role="button"></a>';
     private $setText = '<a class="btn btn-default" role="button">To mesour.com &gt;&gt;</a>';
     private $setAttributeAndLink = '<a href="http://mesour.com" target="_blank" class="btn btn-default" role="button"></a>';
-    private $sizeAndOwnClass = '<a href="http://mesour.com" target="_blank" class="btn btn-warning btn-lg my-own-appended-class" role="button">To mesour.com &gt;&gt;</a>';
-    private $disabled = '<a target="_blank" class="btn btn-warning btn-lg my-own-appended-class disabled" role="button">To mesour.com &gt;&gt;</a>';
+    private $sizeAndOwnClass = '<a class="btn btn-warning btn-lg my-own-appended-class" href="http://mesour.com" target="_blank" role="button">To mesour.com &gt;&gt;</a>';
+    private $disabled = '<a class="btn btn-warning btn-lg my-own-appended-class disabled" target="_blank" role="button">To mesour.com &gt;&gt;</a>';
     private $withoutClasses = '<a href="http://mesour.com" target="_blank" role="button">To mesour.com &gt;&gt;</a>';
     private $leftAndRightButtons = '<a href="http://mesour.com" target="_blank" class="btn btn-danger btn-lg" role="button"><span class="glyphicon glyphicon-tree-deciduous"></span>&nbsp;MESOUR.COM&nbsp;<span class="glyphicon glyphicon-menu-right"></span></a>';
     private $onlyIcon = '<a href="http://mesour.com" target="_blank" class="btn btn-primary btn-lg" role="button"><span class="glyphicon glyphicon-pencil"></span></a>';
@@ -25,7 +25,7 @@ class RenderTestCase extends BaseTestCase
         $button = new Button;
 
         $html = $this->getStringFromOb($button);
-        Assert::same($html, $this->withoutSettings);
+        Assert::same($this->withoutSettings, $html);
     }
 
     public function testSetText()
@@ -34,7 +34,7 @@ class RenderTestCase extends BaseTestCase
         $button->setText('To mesour.com >>');
 
         $html = $this->getStringFromOb($button);
-        Assert::same($html, $this->setText);
+        Assert::same($this->setText, $html);
     }
 
     public function testSetAttributeAndLink()
@@ -44,7 +44,7 @@ class RenderTestCase extends BaseTestCase
             ->setAttribute('target', '_blank');
 
         $html = $this->getStringFromOb($button);
-        Assert::same($html, $this->setAttributeAndLink);
+        Assert::same($this->setAttributeAndLink, $html);
     }
 
     public function testSetSizeAndOwnClass()
@@ -54,12 +54,12 @@ class RenderTestCase extends BaseTestCase
         $button->setText('To mesour.com >>')
             ->setType('warning')
             ->setSize('btn-lg')
-            ->setClassName('my-own-appended-class')
+            ->setAttribute('class', 'my-own-appended-class')
             ->setAttribute('href', $button->link('http://mesour.com'))
             ->setAttribute('target', '_blank');
 
         $html = $this->getStringFromOb($button);
-        Assert::same($html, $this->sizeAndOwnClass);
+        Assert::same($this->sizeAndOwnClass, $html);
     }
 
     public function testSetDisabled()
@@ -69,14 +69,14 @@ class RenderTestCase extends BaseTestCase
         $button->setText('To mesour.com >>')
             ->setType('warning')
             ->setSize('btn-lg')
-            ->setClassName('my-own-appended-class')
+            ->setAttribute('class', 'my-own-appended-class')
             ->setAttribute('href', $button->link('http://mesour.com'))
             ->setAttribute('target', '_blank');
 
         $button->setDisabled();
 
         $html = $this->getStringFromOb($button);
-        Assert::same($html, $this->disabled);
+        Assert::same($this->disabled, $html);
     }
 
     public function testWithoutClasses()
@@ -89,7 +89,7 @@ class RenderTestCase extends BaseTestCase
             ->setAttribute('target', '_blank');
 
         $html = $this->getStringFromOb($button);
-        Assert::same($html, $this->withoutClasses);
+        Assert::same($this->withoutClasses, $html);
     }
 
     public function testLeftAndRightButtons()
@@ -107,7 +107,7 @@ class RenderTestCase extends BaseTestCase
             ->setAttribute('target', '_blank');
 
         $html = $this->getStringFromOb($button);
-        Assert::same($html, $this->leftAndRightButtons);
+        Assert::same($this->leftAndRightButtons, $html);
     }
 
     public function testOnlyIcon()
@@ -122,7 +122,7 @@ class RenderTestCase extends BaseTestCase
             ->setAttribute('target', '_blank');
 
         $html = $this->getStringFromOb($button);
-        Assert::same($html, $this->onlyIcon);
+        Assert::same($this->onlyIcon, $html);
     }
 
     public function testUsingDataParser()
@@ -134,15 +134,15 @@ class RenderTestCase extends BaseTestCase
         $button->setType('primary')
             ->setSize('btn-lg')
             ->setAttribute('id', 'user-{username}')
-            ->setAttribute('href', $button->link('/edit-user/', array('id' => '{id}')))
+            ->setAttribute('href', $button->link('/edit-user/', ['id' => '{id}']))
             ->setAttribute('target', '_blank');
 
-        $html = $this->getStringFromOb($button, array(
+        $html = $this->getStringFromOb($button, [
             'id' => 25,
             'username' => 'root',
             'name' => 'Root'
-        ));
-        Assert::same($html, $this->usingDataParser);
+        ]);
+        Assert::same($this->usingDataParser, $html);
     }
 
 }

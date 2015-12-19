@@ -9,96 +9,60 @@
 
 namespace Mesour\UI;
 
-use Mesour\Components;
+use Mesour;
 
 /**
  * @author Matouš Němec <matous.nemec@mesour.com>
+ *
+ * @method null onRender(Button $button)
  */
-class Button extends Control
+class Button extends Mesour\Components\Control\AttributesControl
 {
 
     const WRAPPER = 'wrapper',
-        DEFAULTS = 'defaults',
-        RIGHT_ICON = 'right_icon',
-        ICON = 'icon';
-
-    /**
-     * @var Components\Html
-     */
-    private $wrapper;
-
-    /**
-     * @var Components\Html
-     */
-    private $left_icon;
-
-    /**
-     * @var Components\Html
-     */
-    private $right_icon;
+        DEFAULTS = 'defaults';
 
     private $text = '';
 
     private $disabled = FALSE;
 
-    private $translated_args = array('title', 'value', 'data-confirm', 'data-title');
+    private $className = NULL;
 
-    protected $option = array();
+    public $onRender = [];
 
-    public $onRender = array();
-
-    static public $defaults = array(
-        self::WRAPPER => array(
+    protected $defaults = [
+        self::WRAPPER => [
             'el' => 'a',
-            'attributes' => array(
-                'class' => 'btn btn-{_BTN_type_} {_BTN_size_} {_BTN_own_class_}',
+            'attributes' => [
+                'class' => 'btn btn-{_BTN_type_} {_BTN_size_}',
                 'role' => 'button',
-            )
-        ),
-        self::ICON => array(
-            'el' => 'span',
-            'attributes' => array(
-                'class' => 'glyphicon glyphicon-{_ICON_name_}'
-            )
-        ),
-        self::RIGHT_ICON => array(
-            'el' => 'span',
-            'attributes' => array(
-                'class' => 'glyphicon glyphicon-{_RICON_name_}'
-            )
-        ),
-        self::DEFAULTS => array(
+            ]
+        ],
+        self::DEFAULTS => [
             '_BTN_type_' => 'default',
-            '_BTN_own_class_' => '',
             '_BTN_size_' => '',
-            '_ICON_name_' => 'pencil',
-            '_RICON_name_' => 'pencil',
-        )
-    );
+            '_ICON_name_' => 'cog',
+            '_ICON_prefix_' => 'glyphicon glyphicon-',
+            '_RICON_name_' => 'cog',
+            '_RICON_prefix_' => 'glyphicon glyphicon-',
+        ]
+    ];
 
-    public function __construct($name = NULL, Components\IContainer $parent = NULL)
+    public function __construct($name = NULL, Mesour\Components\ComponentModel\IContainer $parent = NULL)
     {
         parent::__construct($name, $parent);
-        $this->option = self::$defaults;
+
+        $this->setHtmlElement(
+            Mesour\Components\Utils\Html::el($this->getOption(self::WRAPPER, 'el'))
+        );
     }
 
     /**
-     * @return Components\Html
+     * @return Mesour\Components\Utils\Html
      */
     public function getControlPrototype()
     {
-        return !$this->wrapper ? ($this->wrapper = Components\Html::el($this->option[self::WRAPPER]['el'])) : $this->wrapper;
-    }
-
-    public function setClassName($class_name, $append = FALSE)
-    {
-        $class = '';
-        if ($append) {
-            $class .= $this->option[self::DEFAULTS]['_BTN_own_class_'] . ' ';
-        }
-        $class .= $class_name;
-        $this->option[self::DEFAULTS]['_BTN_own_class_'] = $class;
-        return $this;
+        return $this->getHtmlElement();
     }
 
     public function setConfirm($message)
@@ -118,176 +82,192 @@ class Button extends Control
         return $this;
     }
 
-    public function setAttribute($key, $value, $append = FALSE, $translated = FALSE)
-    {
-        if ($translated) {
-            $this->translated_args[] = $key;
-        }
-        $this->translated_args = array_unique($this->translated_args);
-        if ($append) {
-            $this->getControlPrototype()->{$key}($value, TRUE);
-        } else {
-            $this->getControlPrototype()->{$key}($value);
-        }
-        return $this;
-    }
-
-    public function getAttributes()
-    {
-        return $this->getControlPrototype()->attrs;
-    }
-
-    public function hasAttribute($key)
-    {
-        return isset($this->getControlPrototype()->attrs[$key]);
-    }
-
-    public function getAttribute($key)
-    {
-        if (!$this->hasAttribute($key)) {
-            throw new Components\Exception('Attribute ' . $key . ' does not exist.');
-        }
-        return $this->getControlPrototype()->attrs[$key];
-    }
-
-    /**
-     * @return Components\Html|null
-     */
-    public function getIconPrototype()
-    {
-        return !$this->left_icon instanceof Components\Html ? ($this->left_icon = Components\Html::el($this->option[self::ICON]['el'])) : $this->left_icon;
-    }
-
-    /**
-     * @return Components\Html|null
-     */
-    public function getRightIconPrototype()
-    {
-        return !$this->right_icon instanceof Components\Html ? ($this->right_icon = Components\Html::el($this->option[self::ICON]['el'])) : $this->right_icon;
-    }
-
     public function setSize($size_class)
     {
-        $this->option[self::DEFAULTS]['_BTN_size_'] = $size_class;
+        $this->setOption(self::DEFAULTS, $size_class, '_BTN_size_');
         return $this;
     }
 
     public function setType($type)
     {
-        $this->option[self::DEFAULTS]['_BTN_type_'] = $type;
+        $this->setOption(self::DEFAULTS, $type, '_BTN_type_');
         return $this;
     }
 
     public function setDisabled($disabled = TRUE)
     {
-        $this->disabled = $disabled;
-    }
-
-    public function setIcon($name = NULL)
-    {
-        if (!is_null($name)) {
-            $this->option[self::DEFAULTS]['_ICON_name_'] = $name;
-        }
-        $this->left_icon = TRUE;
+        $this->disabled = (bool)$disabled;
         return $this;
     }
 
-    public function setRightIcon($name = NULL)
+    public function setClassName($className)
     {
-        if (!is_null($name)) {
-            $this->option[self::DEFAULTS]['_RICON_name_'] = $name;
-        }
-        $this->right_icon = TRUE;
+        $this->className = $className;
         return $this;
     }
 
-    public function create($data = array())
+    public function isDisabled()
+    {
+        return $this->disabled;
+    }
+
+    public function setIcon($type = NULL, $classPrefix = NULL)
+    {
+        if ($this->hasLeftIcon()) {
+            $icon = $this->getLeftIcon()
+                ->setType(!$type ? $this->getOption(self::DEFAULTS, '_ICON_name_') : $type)
+                ->setPrefix(!$classPrefix ? $this->getOption(self::DEFAULTS, '_ICON_prefix_') : $classPrefix);
+            return $icon;
+        }
+        $this->createIcon(
+            'leftIcon',
+            !$type ? $this->getOption(self::DEFAULTS, '_ICON_name_') : $type,
+            !$classPrefix ? $this->getOption(self::DEFAULTS, '_ICON_prefix_') : $classPrefix
+        );
+        return $this;
+    }
+
+    public function setRightIcon($type = NULL, $classPrefix = NULL)
+    {
+        if ($this->hasRightIcon()) {
+            $icon = $this->getRightIcon()
+                ->setType(!$type ? $this->getOption(self::DEFAULTS, '_RICON_name_') : $type)
+                ->setPrefix(!$classPrefix ? $this->getOption(self::DEFAULTS, '_RICON_prefix_') : $classPrefix);
+            return $icon;
+        }
+        $this->createIcon(
+            'rightIcon',
+            !$type ? $this->getOption(self::DEFAULTS, '_RICON_name_') : $type,
+            !$classPrefix ? $this->getOption(self::DEFAULTS, '_RICON_prefix_') : $classPrefix
+        );
+        return $this;
+    }
+
+    public function setPermission($role, $resource = NULL, $privilege = NULL)
+    {
+        $this->setPermissionCheck($role, $resource, $privilege);
+        return $this;
+    }
+
+    public function create()
     {
         parent::create();
 
-        $option_data = $this->option[self::DEFAULTS];
         $wrapper = $this->getControlPrototype();
-        $this->wrapper = clone $wrapper;
-        if ($this->left_icon) {
-            $left_icon = $this->getIconPrototype();
-            $this->left_icon = clone $left_icon;
-        }
-        if ($this->right_icon) {
-            $right_icon = $this->getIconPrototype();
-            $this->right_icon = clone $right_icon;
-        }
-
-        $this->onRender($this, $data);
-
-        foreach ($this->option[self::WRAPPER]['attributes'] as $key => $value) {
-            if (!$this->wrapper->{$key} && $this->wrapper->{$key} !== FALSE) {
-                $this->wrapper->{$key}(trim(Components\Helper::parseValue($value, $option_data)));
+        $oldWrapper = clone $wrapper;
+        foreach ($oldWrapper->attrs as $key => $attr) {
+            if (is_object($attr)) {
+                $oldWrapper->attrs[$key] = clone $attr;
             }
         }
 
-        $attrs = $this->wrapper->attrs;
-        foreach ($attrs as $key => $value) {
-            if (!$this->disabled && $value instanceof Components\Link\IUrl) {
-                if ($this->getAuth()->isAllowed($value)) {
-                    $value = $value->create($data);
-                } else {
-                    unset($this->wrapper->{$key}, $attrs[$key]);
-                    $disabled = TRUE;
-                    continue;
-                }
-            } elseif ($this->disabled && $value instanceof Components\Link\IUrl) {
-                unset($this->wrapper->{$key}, $attrs[$key]);
+        if ($this->hasLeftIcon()) {
+            $oldLeftIcon = clone $this->getLeftIcon();
+        }
+        if ($this->hasRightIcon()) {
+            $oldRightIcon = clone $this->getRightIcon();
+        }
+
+        $this->onRender($this);
+
+        $optionData = $this->getOption(self::DEFAULTS);
+
+        if (!$this->isAllowed()) {
+            $this->setDisabled(TRUE);
+        }
+
+        foreach ($this->getOption(self::WRAPPER, 'attributes') as $key => $value) {
+            if ($value instanceof Mesour\Components\Link\IUrl) {
                 continue;
             }
-
-            if (count($data) > 0) {
-                $attrs[$key] = trim(Components\Helper::parseValue($value, $data));
-            }
-            if (in_array($key, $this->translated_args)) {
-                $attrs[$key] = trim($this->getTranslator()->translate($attrs[$key]));
-            }
-        }
-        if ($this->disabled || isset($disabled)) {
-            unset($this->wrapper->onclick, $attrs['onclick']);
-            $attrs['class'] = $attrs['class'] . ' disabled';
-        }
-        $this->wrapper->addAttributes($attrs);
-
-        if (isset($left_icon)) {
-            foreach ($this->option[self::ICON]['attributes'] as $key => $value) {
-                if (!$this->left_icon->{$key}) {
-                    $this->left_icon->{$key}(Components\Helper::parseValue($value, $option_data));
+            if (!$this->hasAttribute($key) || $this->getAttribute($key, FALSE) !== FALSE) {
+                $value = trim(Mesour\Components\Utils\Helpers::parseValue($value, $optionData));
+                if ($this->hasAttribute($key)) {
+                    $value .= ' ' . $this->getAttribute($key);
                 }
+                $this->setAttribute($key, $value);
             }
-            $this->wrapper->add($this->left_icon);
-            if (strlen($this->text) > 0) {
-                $this->wrapper->add('&nbsp;');
-            }
-            $this->left_icon = $left_icon;
         }
 
-        $this->wrapper->add($this->text);
-
-        if (isset($right_icon)) {
-            foreach ($this->option[self::RIGHT_ICON]['attributes'] as $key => $value) {
-                if (!$this->right_icon->{$key}) {
-                    $this->right_icon->{$key}(Components\Helper::parseValue($value, $option_data));
-                }
-            }
-            if (strlen($this->text) > 0) {
-                $this->wrapper->add('&nbsp;');
-            }
-            $this->wrapper->add($this->right_icon);
-            $this->$right_icon = $right_icon;
+        if ($this->className) {
+            $this->setAttribute('class', $this->className);
         }
-        $out = $this->wrapper;
-        $this->wrapper = $wrapper;
-        return $out;
+
+        $this->getAttributes($this->isDisabled());
+
+        if ($this->hasLeftIcon()) {
+            $leftIcon = $this->getLeftIcon();
+            $leftIcon->setOption('data', $this->getOption('data'));
+            $wrapper->add($leftIcon->create());
+            if (strlen($this->text) > 0) {
+                $wrapper->add('&nbsp;');
+            }
+            if (isset($oldLeftIcon)) {
+                unset($this['leftIcon']);
+                $this['leftIcon'] = $oldLeftIcon;
+            }
+        }
+
+        $wrapper->add($this->text);
+
+        if ($this->hasRightIcon()) {
+            $rightIcon = $this->getRightIcon();
+            $rightIcon->setOption('data', $this->getOption('data'));
+            if (strlen($this->text) > 0) {
+                $wrapper->add('&nbsp;');
+            }
+            $wrapper->add($rightIcon->create());
+            if (isset($oldRightIcon)) {
+                unset($this['rightIcon']);
+                $this['rightIcon'] = $oldRightIcon;
+            }
+        }
+        $this->setHtmlElement($oldWrapper);
+        return $wrapper;
     }
 
-    public function render($data = array())
+    /**
+     * @return Icon
+     * @throws Mesour\InvalidStateException
+     */
+    public function getLeftIcon()
     {
-        echo $this->create($data);
+        if (!$this->hasLeftIcon()) {
+            throw new Mesour\InvalidStateException('Left icon is not created.');
+        }
+        return $this['leftIcon'];
+    }
+
+    public function hasLeftIcon()
+    {
+        return isset($this['leftIcon']);
+    }
+
+    /**
+     * @return Icon
+     * @throws Mesour\InvalidStateException
+     */
+    public function getRightIcon()
+    {
+        if (!$this->hasRightIcon()) {
+            throw new Mesour\InvalidStateException('Right icon is not created.');
+        }
+        return $this['rightIcon'];
+    }
+
+    public function hasRightIcon()
+    {
+        return isset($this['rightIcon']);
+    }
+
+    protected function createIcon($name, $type, $prefix)
+    {
+        $icon = new Icon();
+
+        $icon->setType($type);
+        $icon->setPrefix($prefix);
+
+        return $this[$name] = $icon;
     }
 
 }

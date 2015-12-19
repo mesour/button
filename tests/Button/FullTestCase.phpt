@@ -13,8 +13,9 @@ class FullTestCase extends BaseTestCase
     /** @var Button */
     private $button;
 
-    private $firstButton = '<a data-text="Test title" data-xxx="ble" class="btn btn-default btn-lg my-test-2 disabled" role="button"><span class="glyphicon glyphicon-menu-hamburger"></span>&nbsp;My text&nbsp;<span class="glyphicon glyphicon-option-horizontal"></span></a>';
-    private $secondButton = '<a onclick="return confirm(\'Test confirm\\\' text?\');" data-text="Test title" href="/test/?id=25" class="btn btn-default btn-lg my-test-2" role="button"><span class="glyphicon glyphicon-education"></span>&nbsp;My text&nbsp;<span class="glyphicon glyphicon-option-horizontal"></span></a>';
+    private $firstButton = '<a data-text="Test title" class="btn btn-default btn-lg my-test-2 disabled" data-xxx="ble" role="button"><span class="glyphicon glyphicon-menu-hamburger"></span>&nbsp;My text&nbsp;<span class="glyphicon glyphicon-option-horizontal"></span></a>';
+    private $secondButton = '<a onclick="return confirm(\'Test confirm\\\' text?\');" data-text="Test title" class="btn btn-default btn-lg my-test-2" href="/test/?id=25" role="button"><span class="glyphicon glyphicon-education"></span>&nbsp;My text&nbsp;<span class="glyphicon glyphicon-option-horizontal"></span></a>';
+    private $thirdButton = '<a onclick="return confirm(\'Test confirm\\\' text?\');" data-text="Test title" class="test" href="/test/?id=50" role="button"><span class="glyphicon glyphicon-education"></span>&nbsp;My text&nbsp;<span class="glyphicon glyphicon-option-horizontal"></span></a>';
 
     public function testFullExample()
     {
@@ -32,37 +33,43 @@ class FullTestCase extends BaseTestCase
 
         $this->button->setText('My text');
 
-        $this->button->setClassName('my-test-2');
+        $this->button->setAttribute('class', 'my-test-2');
 
-        $this->button->setAttribute('href', $this->button->link('/test/', array('id' => '{id}')));
+        $this->button->setAttribute('href', $this->button->link('/test/', ['id' => '{id}']));
 
-        $this->button->onRender[] = function (Button $button, $data) {
+        $this->button->onRender[] = function (Button $button) {
+            $data = $button->getOption('data');
             if ($data['id'] <= 5) {
                 $button->setDisabled();
                 $button->setAttribute('data-xxx', 'ble');
-                $button->getIconPrototype()
-                    ->class('glyphicon glyphicon-menu-hamburger');
+                $button->setIcon('menu-hamburger');
             } else {
                 $button->setDisabled(FALSE);
+
             }
 
+            if($data['id'] > 25) {
+                $button->setClassName('test');
+            }
         };
     }
 
     public function testAssertFirst()
     {
-        $html = $this->getStringFromOb($this->button, array(
-            'id' => 5
-        ));
-        Assert::same($html, $this->firstButton);
+        $html = $this->getStringFromOb($this->button, ['id' => 5]);
+        Assert::same($this->firstButton, $html);
     }
 
     public function testAssertSecond()
     {
-        $html = $this->getStringFromOb($this->button, array(
-            'id' => 25
-        ));
-        Assert::same($html, $this->secondButton);
+        $html = $this->getStringFromOb($this->button, ['id' => 25]);
+        Assert::same($this->secondButton, $html);
+    }
+
+    public function testAssertThird()
+    {
+        $html = $this->getStringFromOb($this->button, ['id' => 50]);
+        Assert::same($this->thirdButton, $html);
     }
 
 }

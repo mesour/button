@@ -10,40 +10,11 @@ require_once __DIR__ . '/../bootstrap.php';
 class DefaultsTestCase extends BaseTestCase
 {
 
-    private $html = '<b href="http://example.com?id=5" class="btnx btnx-defaultx c d" role="buttonx"><i class="glyphiconsa glyphicon-pencila"></i>&nbsp;Text&nbsp;<i class="glyphiconb glyphiconx-pencilb"></i></b>';
+    private $html = '<b href="http://example.com?id=5" class="btnx btnx-defaultx d c" role="buttonx"><span class="glyphiconsa glyphicon-pencila"></span>&nbsp;Text&nbsp;<span class="glyphiconb glyphiconx-pencilb"></span></b>';
 
     public function testPrimaryKey()
     {
-        Button::$defaults = array(
-            Button::WRAPPER => array(
-                'el' => 'b',
-                'attributes' => array(
-                    'class' => 'btnx btnx-{_BTN_type_} {_BTN_size_} {_BTN_own_class_}',
-                    'role' => 'buttonx',
-                )
-            ),
-            Button::ICON => array(
-                'el' => 'i',
-                'attributes' => array(
-                    'class' => 'glyphiconsa glyphicon-{_ICON_name_}'
-                )
-            ),
-            Button::RIGHT_ICON => array(
-                'el' => 'i',
-                'attributes' => array(
-                    'class' => 'glyphiconb glyphiconx-{_RICON_name_}'
-                )
-            ),
-            Button::DEFAULTS => array(
-                '_BTN_type_' => 'defaultx',
-                '_BTN_own_class_' => 'd',
-                '_BTN_size_' => 'c',
-                '_ICON_name_' => 'pencila',
-                '_RICON_name_' => 'pencilb',
-            )
-        );
-
-        $button = new Button;
+        $button = new TestButton;
 
         $button->setIcon();
         $button->setRightIcon();
@@ -59,15 +30,38 @@ class DefaultsTestCase extends BaseTestCase
         Assert::true($dom->has('b.btnx'));
         Assert::true($dom->has('b.[href="http://example.com?id=5"]'));
         Assert::true($dom->has('b[role=buttonx]'));
-        Assert::true($dom->has('b i.glyphiconsa.glyphicon-pencila'));
-        Assert::true($dom->has('b i.glyphiconb.glyphiconx-pencilb'));
+        Assert::true($dom->has('b span.glyphiconsa.glyphicon-pencila'));
+        Assert::true($dom->has('b span.glyphiconb.glyphiconx-pencilb'));
 
         $html = $this->getStringFromOb($button);
 
-        Assert::same($html, $this->html);
+        Assert::same($this->html, $html);
     }
 
 
+}
+
+class TestButton extends Button
+{
+
+    protected $defaults = [
+        self::WRAPPER => [
+            'el' => 'b',
+            'attributes' => [
+                'class' => 'btnx btnx-{_BTN_type_} {_BTN_size_} {_BTN_own_class_}',
+                'role' => 'buttonx',
+            ]
+        ],
+        self::DEFAULTS => [
+            '_BTN_type_' => 'defaultx',
+            '_BTN_own_class_' => 'c',
+            '_BTN_size_' => 'd',
+            '_ICON_name_' => 'pencila',
+            '_ICON_prefix_' => 'glyphiconsa glyphicon-',
+            '_RICON_name_' => 'pencilb',
+            '_RICON_prefix_' => 'glyphiconb glyphiconx-',
+        ]
+    ];
 
 }
 
