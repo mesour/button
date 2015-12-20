@@ -71,6 +71,19 @@ class Button extends Mesour\Components\Control\AttributesControl
         return $this;
     }
 
+    /**
+     * @param $title
+     * @param string $placement left|top|bottom|right
+     * @return $this
+     */
+    public function setTooltip($title, $placement = 'top')
+    {
+        $this->setAttribute('title', $title);
+        $this->setAttribute('data-mesour-toggle', 'tooltip');
+        $this->setAttribute('data-placement', $placement);
+        return $this;
+    }
+
     public function setText($text)
     {
         return $this->setHtml(htmlspecialchars($this->getTranslator()->translate($text)));
