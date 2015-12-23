@@ -156,9 +156,9 @@ class Button extends Mesour\Components\Control\AttributesControl
         return $this;
     }
 
-    public function setPermission($role, $resource = NULL, $privilege = NULL)
+    public function setPermission($resource = NULL, $privilege = NULL)
     {
-        $this->setPermissionCheck($role, $resource, $privilege);
+        $this->setPermissionCheck($resource, $privilege);
         return $this;
     }
 
