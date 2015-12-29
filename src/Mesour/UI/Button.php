@@ -2,7 +2,7 @@
 /**
  * This file is part of the Mesour Button (http://components.mesour.com/component/button)
  *
- * Copyright (c) 2015 Matouš Němec (http://mesour.com)
+ * Copyright (c) 2015-2016 Matouš Němec (http://mesour.com)
  *
  * For full licence and copyright please view the file licence.md in root of this project
  */
@@ -42,9 +42,9 @@ class Button extends Mesour\Components\Control\AttributesControl
             '_BTN_type_' => 'default',
             '_BTN_size_' => '',
             '_ICON_name_' => 'cog',
-            '_ICON_prefix_' => 'glyphicon glyphicon-',
+            '_ICON_prefix_' => 'fa fa-',
             '_RICON_name_' => 'cog',
-            '_RICON_prefix_' => 'glyphicon glyphicon-',
+            '_RICON_prefix_' => 'fa fa-',
         ]
     ];
 
@@ -202,8 +202,8 @@ class Button extends Mesour\Components\Control\AttributesControl
             }
         }
 
-        if ($this->className) {
-            $this->setAttribute('class', $this->className);
+        if (!is_null($this->className)) {
+            $this->setAttribute('class', $this->className === '' ? FALSE : $this->className);
         }
 
         $this->getAttributes($this->isDisabled());
@@ -275,7 +275,10 @@ class Button extends Mesour\Components\Control\AttributesControl
 
     protected function createIcon($name, $type, $prefix)
     {
-        $icon = new Icon();
+        $className = $this->getIconClass();
+
+        /** @var Mesour\Icon\IIcon $icon */
+        $icon = new $className();
 
         $icon->setType($type);
         $icon->setPrefix($prefix);

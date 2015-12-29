@@ -13,9 +13,9 @@ class FullTestCase extends BaseTestCase
     /** @var Button */
     private $button;
 
-    private $firstButton = '<a data-text="Test title" class="btn btn-default btn-lg my-test-2 disabled" data-xxx="ble" role="button"><span class="glyphicon glyphicon-menu-hamburger"></span>&nbsp;My text&nbsp;<span class="glyphicon glyphicon-option-horizontal"></span></a>';
-    private $secondButton = '<a onclick="return confirm(\'Test confirm\\\' text?\');" data-text="Test title" class="btn btn-default btn-lg my-test-2" href="/test/?id=25" role="button"><span class="glyphicon glyphicon-education"></span>&nbsp;My text&nbsp;<span class="glyphicon glyphicon-option-horizontal"></span></a>';
-    private $thirdButton = '<a onclick="return confirm(\'Test confirm\\\' text?\');" data-text="Test title" class="test" href="/test/?id=50" role="button"><span class="glyphicon glyphicon-education"></span>&nbsp;My text&nbsp;<span class="glyphicon glyphicon-option-horizontal"></span></a>';
+    private $firstButton = '<a data-text="Test title" class="btn btn-default btn-lg my-test-2 disabled" data-xxx="ble" role="button"><span class="fa fa-menu-hamburger"></span>&nbsp;My text&nbsp;<span class="fa fa-option-horizontal"></span></a>';
+    private $secondButton = '<a onclick="return confirm(\'Test confirm\\\' text?\');" data-text="Test title" class="btn btn-default btn-lg my-test-2" href="/test/?id=25" role="button"><span class="fa fa-education"></span>&nbsp;My text&nbsp;<span class="fa fa-option-horizontal"></span></a>';
+    private $thirdButton = '<a onclick="return confirm(\'Test confirm\\\' text?\');" data-text="Test title" class="test" href="/test/?id=50" role="button"><span class="fa fa-education"></span>&nbsp;My text&nbsp;<span class="fa fa-option-horizontal"></span></a>';
 
     public function testFullExample()
     {

@@ -1,13 +1,13 @@
-<!-- Latest compiled and minified CSS -->
-<link rel="stylesheet" href="resources/css/bootstrap.min.css">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css"
+      integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
 
-<!-- Optional theme -->
-<link rel="stylesheet" href="resources/css/bootstrap-theme.min.css">
 
 <!-- Latest compiled and minified JavaScript -->
-<script src="resources/js/jquery.min.js"></script>
-<script src="resources/js/bootstrap.min.js"></script>
-<script src="resources/js/main.js"></script>
+<script src="https://code.jquery.com/jquery-2.1.4.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"
+        integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS"
+        crossorigin="anonymous"></script>
 
 <?php
 
@@ -31,7 +31,7 @@ require_once SRC_DIR . 'Mesour/UI/Button.php';
 
         $button = new \Mesour\UI\Button;
 
-        $button->render();
+        echo $button->render();
 
         ?>
     </div>
@@ -52,7 +52,7 @@ require_once SRC_DIR . 'Mesour/UI/Button.php';
         $button->setAttribute('href', $button->link('http://mesour.com'))
             ->setAttribute('target', '_blank');
 
-        $button->render();
+        echo $button->render();
 
         ?>
     </div>
@@ -71,11 +71,11 @@ require_once SRC_DIR . 'Mesour/UI/Button.php';
         $button->setText('To mesour.com >>')
             ->setType('warning')
             ->setSize('btn-lg')
-            ->setClassName('my-own-appended-class')
+            ->setAttribute('class', 'my-own-appended-class')
             ->setAttribute('href', $button->link('http://mesour.com'))
             ->setAttribute('target', '_blank');
 
-        $button->render();
+        echo $button->render();
 
         ?>
     </div>
@@ -94,13 +94,13 @@ require_once SRC_DIR . 'Mesour/UI/Button.php';
         $button->setText('To mesour.com >>')
             ->setType('warning')
             ->setSize('btn-lg')
-            ->setClassName('my-own-appended-class')
+            ->setAttribute('class', 'my-own-appended-class')
             ->setAttribute('href', $button->link('http://mesour.com'))
             ->setAttribute('target', '_blank');
 
         $button->setDisabled();
 
-        $button->render();
+        echo $button->render();
 
         ?>
     </div>
@@ -117,11 +117,11 @@ require_once SRC_DIR . 'Mesour/UI/Button.php';
         $button = new \Mesour\UI\Button();
 
         $button->setText('To mesour.com >>')
-            ->setAttribute('class', FALSE)// set own class name or FALSE for unset
+            ->setClassName('') // set own class name or FALSE for unset
             ->setAttribute('href', $button->link('http://mesour.com'))
             ->setAttribute('target', '_blank');
 
-        $button->render();
+        echo $button->render();
 
         ?>
     </div>
@@ -147,7 +147,7 @@ require_once SRC_DIR . 'Mesour/UI/Button.php';
             ->setAttribute('href', $button->link('http://mesour.com'))
             ->setAttribute('target', '_blank');
 
-        $button->render();
+        echo $button->render();
 
         ?>
     </div>
@@ -170,7 +170,7 @@ require_once SRC_DIR . 'Mesour/UI/Button.php';
             ->setAttribute('href', $button->link('http://mesour.com'))
             ->setAttribute('target', '_blank');
 
-        $button->render();
+        echo $button->render();
 
         ?>
     </div>
@@ -194,11 +194,12 @@ require_once SRC_DIR . 'Mesour/UI/Button.php';
             ->setAttribute('href', $button->link('/edit-user/', ['id' => '{id}']))
             ->setAttribute('target', '_blank');
 
-        $button->render([
+        $button->setOption('data', [
             'id' => 25,
             'username' => 'root',
             'name' => 'Root'
         ]);
+        echo $button->render();
 
         ?>
     </div>
@@ -226,16 +227,18 @@ require_once SRC_DIR . 'Mesour/UI/Button.php';
 
         $button->setText('My text');
 
-        $button->setClassName('my-test-2');
+        $button->setAttribute('class', 'my-test-2');
 
         $button->setAttribute('href', $button->link('/test/', ['id' => '{id}']));
 
-        $button->onRender[] = function (\Mesour\UI\Button $button, $data) {
+        $button->onRender[] = function (\Mesour\UI\Button $button) {
+            $data = $button->getOption('data');
             if ($data['id'] <= 5) {
                 $button->setDisabled();
                 $button->setAttribute('data-xxx', 'ble');
-                $button->getIconPrototype()
-                    ->class('glyphicon glyphicon-menu-hamburger');
+                $button->getLeftIcon()
+                    ->setPrefix('fa fa-')
+                    ->setType('bars');
             } else {
                 $button->setDisabled(FALSE);
             }
@@ -244,15 +247,17 @@ require_once SRC_DIR . 'Mesour/UI/Button.php';
 
         echo '<h4>Disabled id = 5</h4>';
 
-        $button->render([
+        $button->setOption('data', [
             'id' => 5
         ]);
+        echo $button->render();
 
         echo '<hr><h4>Enabled id = 25</h4>';
 
-        $button->render([
+        $button->setOption('data', [
             'id' => 25
         ]);
+        echo $button->render();
 
         ?>
     </div>
