@@ -3,6 +3,5 @@
 /composer.lock
 /tests/tmp
 /tests/log
-/demo/log
-/demo/tmp
+/examples/log
 /tests/Button/output
