@@ -9,15 +9,18 @@
       "homepage": "http://mesour.com"
   }],
   "require": {
-      "php": ">=5.5.0",
-      "mesour/components": "3.0.*@beta",
-      "mesour/icon": "3.0.*@beta"
+    "php": ">=5.5.0",
+    "mesour/components": "3.0.*@beta",
+    "mesour/icon": "3.0.*@beta"
   },
   "require-dev": {
-      "tracy/tracy": "~2.3.0",
-      "nette/tester": "~1.5.0"
+    "tracy/tracy": "~2.3.0",
+    "nette/tester": "~1.5.0",
+    "slevomat/coding-standard": "^1.0",
+    "consistence/coding-standard": "^0.10"
   },
   "minimum-stability": "beta",
+  "prefer-stable": true,
   "autoload": {
       "classmap": ["src/"]
   }

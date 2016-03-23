@@ -4,6 +4,7 @@ php:
     - 5.5
     - 5.6
     - 7.0
+    - hhvm
 
 matrix:
     allow_failures:
@@ -14,3 +15,4 @@ install:
 
 script:
     - vendor/bin/tester -p php $COVERAGE tests/ -s -c tests/php.ini
+    - if [ $TRAVIS_PHP_VERSION = '5.6' ]; vendor/bin/phpcs --standard=ruleset.xml --extensions=php --encoding=utf-8 --tab-width=4 -sp src tests; fi
