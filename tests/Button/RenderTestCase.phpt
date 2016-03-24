@@ -2,8 +2,8 @@
 
 namespace Mesour\Button\Tests;
 
+use Mesour\UI\Button;
 use Tester\Assert;
-use \Mesour\UI\Button;
 
 require_once __DIR__ . '/../bootstrap.php';
 
@@ -11,13 +11,21 @@ class RenderTestCase extends BaseTestCase
 {
 
 	private $withoutSettings = '<a class="btn btn-default" role="button"></a>';
+
 	private $setText = '<a class="btn btn-default" role="button">To mesour.com &gt;&gt;</a>';
+
 	private $setAttributeAndLink = '<a href="http://mesour.com" target="_blank" class="btn btn-default" role="button"></a>';
+
 	private $sizeAndOwnClass = '<a class="btn btn-warning btn-lg my-own-appended-class" href="http://mesour.com" target="_blank" role="button">To mesour.com &gt;&gt;</a>';
+
 	private $disabled = '<a class="btn btn-warning btn-lg my-own-appended-class disabled" target="_blank" role="button">To mesour.com &gt;&gt;</a>';
+
 	private $withoutClasses = '<a href="http://mesour.com" target="_blank" role="button">To mesour.com &gt;&gt;</a>';
+
 	private $leftAndRightButtons = '<a href="http://mesour.com" target="_blank" class="btn btn-danger btn-lg" role="button"><span class="fa fa-tree-deciduous"></span>&nbsp;MESOUR.COM&nbsp;<span class="fa fa-menu-right"></span></a>';
+
 	private $onlyIcon = '<a href="http://mesour.com" target="_blank" class="btn btn-primary btn-lg" role="button"><span class="fa fa-pencil"></span></a>';
+
 	private $usingDataParser = '<a id="user-root" href="/edit-user/?id=25" target="_blank" class="btn btn-primary btn-lg" role="button"><span class="fa fa-pencil"></span></a>';
 
 	public function testWithoutSettings()
@@ -137,11 +145,14 @@ class RenderTestCase extends BaseTestCase
 			->setAttribute('href', $button->link('/edit-user/', ['id' => '{id}']))
 			->setAttribute('target', '_blank');
 
-		$html = $this->getStringFromOb($button, [
-			'id' => 25,
-			'username' => 'root',
-			'name' => 'Root',
-		]);
+		$html = $this->getStringFromOb(
+			$button,
+			[
+				'id' => 25,
+				'username' => 'root',
+				'name' => 'Root',
+			]
+		);
 		Assert::same($this->usingDataParser, $html);
 	}
 

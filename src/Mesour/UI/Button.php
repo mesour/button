@@ -20,6 +20,7 @@ class Button extends Mesour\Components\Control\AttributesControl
 {
 
 	const WRAPPER = 'wrapper';
+
 	const DEFAULTS = 'defaults';
 
 	private $text = '';
@@ -74,7 +75,7 @@ class Button extends Mesour\Components\Control\AttributesControl
 	}
 
 	/**
-	 * @param $title
+	 * @param string $title
 	 * @param string $placement left|top|bottom|right
 	 * @return $this
 	 */
@@ -98,9 +99,9 @@ class Button extends Mesour\Components\Control\AttributesControl
 		return $this;
 	}
 
-	public function setSize($size_class)
+	public function setSize($sizeClass)
 	{
-		$this->setOption(self::DEFAULTS, $size_class, '_BTN_size_');
+		$this->setOption(self::DEFAULTS, $sizeClass, '_BTN_size_');
 		return $this;
 	}
 
@@ -112,7 +113,7 @@ class Button extends Mesour\Components\Control\AttributesControl
 
 	public function setDisabled($disabled = true)
 	{
-		$this->disabled = (bool)$disabled;
+		$this->disabled = (bool) $disabled;
 		return $this;
 	}
 

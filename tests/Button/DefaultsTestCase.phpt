@@ -2,8 +2,8 @@
 
 namespace Mesour\Button\Tests;
 
+use Mesour\UI\Button;
 use Tester\Assert;
-use \Mesour\UI\Button;
 
 require_once __DIR__ . '/../bootstrap.php';
 
@@ -37,7 +37,6 @@ class DefaultsTestCase extends BaseTestCase
 
 		Assert::same($this->html, $html);
 	}
-
 
 }
 
