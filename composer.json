@@ -10,8 +10,8 @@
   }],
   "require": {
     "php": ">=5.5.0",
-    "mesour/components": "3.0.*@beta",
-    "mesour/icon": "3.0.*@beta"
+    "mesour/components": "~3.0.0",
+    "mesour/icon": "~3.0.0"
   },
   "require-dev": {
     "tracy/tracy": "~2.3.0",
@@ -19,8 +19,6 @@
     "slevomat/coding-standard": "^1.0",
     "consistence/coding-standard": "^0.10"
   },
-  "minimum-stability": "beta",
-  "prefer-stable": true,
   "autoload": {
       "classmap": ["src/"]
   }
