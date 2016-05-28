@@ -10,14 +10,21 @@
 namespace Mesour\UI;
 
 use Mesour;
+use Mesour\Components\Localization\ITranslatable;
+use Mesour\Components\Security\IAuthorised;
+use Mesour\Icon\IHasIcon;
 
 /**
  * @author Matouš Němec (http://mesour.com)
  *
  * @method null onRender(Button $button)
  */
-class Button extends Mesour\Components\Control\AttributesControl
+class Button extends Mesour\Components\Control\AttributesControl implements IHasIcon, ITranslatable, IAuthorised
 {
+
+	use Mesour\Icon\HasIcon;
+	use Mesour\Components\Security\Authorised;
+	use Mesour\Components\Localization\Translatable;
 
 	const WRAPPER = 'wrapper';
 

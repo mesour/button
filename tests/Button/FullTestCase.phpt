@@ -23,7 +23,7 @@ class FullTestCase extends BaseTestCase
 
 	public function testFullExample()
 	{
-		$this->button = new Button();
+		$this->button = $this->createButton();
 
 		$this->button->setConfirm('Test confirm\' text?');
 
