@@ -2,7 +2,6 @@
 
 namespace Mesour\Button\Tests;
 
-use Mesour\UI\Button;
 use Tester\Assert;
 
 require_once __DIR__ . '/../bootstrap.php';
@@ -30,7 +29,7 @@ class RenderTestCase extends BaseTestCase
 
 	public function testWithoutSettings()
 	{
-		$button = new Button;
+		$button = $this->createButton();
 
 		$html = $this->getStringFromOb($button);
 		Assert::same($this->withoutSettings, $html);
@@ -38,7 +37,7 @@ class RenderTestCase extends BaseTestCase
 
 	public function testSetText()
 	{
-		$button = new Button;
+		$button = $this->createButton();
 		$button->setText('To mesour.com >>');
 
 		$html = $this->getStringFromOb($button);
@@ -47,7 +46,7 @@ class RenderTestCase extends BaseTestCase
 
 	public function testSetAttributeAndLink()
 	{
-		$button = new Button;
+		$button = $this->createButton();
 		$button->setAttribute('href', $button->link('http://mesour.com'))
 			->setAttribute('target', '_blank');
 
@@ -57,7 +56,7 @@ class RenderTestCase extends BaseTestCase
 
 	public function testSetSizeAndOwnClass()
 	{
-		$button = new Button;
+		$button = $this->createButton();
 
 		$button->setText('To mesour.com >>')
 			->setType('warning')
@@ -72,7 +71,7 @@ class RenderTestCase extends BaseTestCase
 
 	public function testSetDisabled()
 	{
-		$button = new Button;
+		$button = $this->createButton();
 
 		$button->setText('To mesour.com >>')
 			->setType('warning')
@@ -89,7 +88,7 @@ class RenderTestCase extends BaseTestCase
 
 	public function testWithoutClasses()
 	{
-		$button = new Button;
+		$button = $this->createButton();
 
 		$button->setText('To mesour.com >>')
 			->setAttribute('class', false)// set own class name or FALSE for unset
@@ -102,7 +101,7 @@ class RenderTestCase extends BaseTestCase
 
 	public function testLeftAndRightButtons()
 	{
-		$button = new Button;
+		$button = $this->createButton();
 
 		$button->setIcon('tree-deciduous');
 
@@ -120,7 +119,7 @@ class RenderTestCase extends BaseTestCase
 
 	public function testOnlyIcon()
 	{
-		$button = new Button;
+		$button = $this->createButton();
 
 		$button->setIcon('pencil');
 
@@ -135,7 +134,7 @@ class RenderTestCase extends BaseTestCase
 
 	public function testUsingDataParser()
 	{
-		$button = new Button;
+		$button = $this->createButton();
 
 		$button->setIcon('pencil');
 

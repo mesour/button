@@ -2,6 +2,7 @@
 
 namespace Mesour\Button\Tests;
 
+use Mesour\UI\Application;
 use Mesour\UI\Button;
 use Tester\Assert;
 
@@ -14,7 +15,9 @@ class DefaultsTestCase extends BaseTestCase
 
 	public function testPrimaryKey()
 	{
-		$button = new TestButton;
+		$application = new Application();
+		$application->setRequest([]);
+		$button = new TestButton('button', $application);
 
 		$button->setIcon();
 		$button->setRightIcon();

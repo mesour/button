@@ -2,12 +2,21 @@
 
 namespace Mesour\Button\Tests;
 
+use Mesour\UI\Application;
 use Mesour\UI\Button;
 use Tester\DomQuery;
 use Tester\TestCase;
 
 abstract class BaseTestCase extends TestCase
 {
+
+	protected function createButton()
+	{
+		$application = new Application();
+		$application->setRequest([]);
+
+		return new Button('testButton', $application);
+	}
 
 	protected function getDomQueryFromOb(Button $button, $data = [], $xml = false)
 	{
