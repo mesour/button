@@ -10,8 +10,8 @@
   }],
   "require": {
     "php": ">=5.6.0",
-    "mesour/components": "dev-experimental",
-    "mesour/icon": "dev-experimental"
+    "mesour/components": "~3.1.0",
+    "mesour/icon": "~3.1.0"
   },
   "require-dev": {
     "tracy/tracy": "~2.3.0",
