@@ -2,7 +2,6 @@
 
 namespace Mesour\Button\Tests;
 
-use Mesour\UI\Button;
 use Tester\Assert;
 
 require_once __DIR__ . '/../bootstrap.php';
